@@ -1,11 +1,19 @@
 <?php
 
+require_once (ABSPATH . 'wp-content/plugins/translationsManagement/TranslationRequest.php');
+
 class TranslationsManagement
 {
+    private $TranslationRequest;
+
     public function __construct()
     {
         // Short-Codes
         add_shortcode('render-main-page', [$this, 'renderMainPage']);
+        add_shortcode('render-admin-management', [$this, 'renderAdminManagement']);
+
+        // Access to other classes
+        $this->TranslationRequest = new TranslationRequest();
     }
 
     /**
@@ -19,6 +27,20 @@ class TranslationsManagement
         ];
         $attributes = shortcode_atts($default_attributes, $attributes);
         return $this->getTemplateHtml('mainPage', $attributes);
+    }
+
+    /**
+     * @param array $attributes
+     * @return string
+     */
+    public function renderAdminManagement($attributes)
+    {
+        $default_attributes = [
+            'show_title' => false,
+            'requests' => $this->TranslationRequest->GetTranslationRequests('requested'),
+        ];
+        $attributes = shortcode_atts($default_attributes, $attributes);
+        return $this->getTemplateHtml('adminManagement', $attributes);
     }
 
     /**
