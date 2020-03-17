@@ -1,10 +1,12 @@
 <?php
 
 require_once (ABSPATH . 'wp-content/plugins/translationsManagement/TranslationRequest.php');
+require_once (ABSPATH . 'wp-content/plugins/translationsManagement/TranslatorSkill.php');
 
 class TranslationsManagement
 {
     private $TranslationRequest;
+    private $TranslatorSkill;
 
     public function __construct()
     {
@@ -14,6 +16,7 @@ class TranslationsManagement
 
         // Access to other classes
         $this->TranslationRequest = new TranslationRequest();
+        $this->TranslatorSkill = new TranslatorSkill();
     }
 
     /**
@@ -38,6 +41,7 @@ class TranslationsManagement
         $default_attributes = [
             'show_title' => false,
             'requests' => $this->TranslationRequest->GetTranslationRequests('requested'),
+            'translators' => $this->TranslatorSkill->GetTranslatorsSkills(),
         ];
         $attributes = shortcode_atts($default_attributes, $attributes);
         return $this->getTemplateHtml('adminManagement', $attributes);
