@@ -24,4 +24,22 @@ $TranslationsManagement = new TranslationsManagement();
 //}
 //$TranslationsManagement->clearRunCustomFunction('createRoles');
 
+
+add_action('wp_enqueue_scripts', 'add_js');
+function add_js() {
+    wp_enqueue_script(
+        'translationsManagementScript',
+        plugin_dir_url( __FILE__ ) . 'assets/translationsManagement.js',
+        array('jquery')
+    );
+
+    wp_localize_script(
+        'ajaxTranslationsManagementAjax',
+        'ajaxTranslationsManagement',
+        array(
+            'url' => admin_url('admin-ajax.php'),
+        )
+    );
+}
+
 register_activation_hook(__FILE__, ['TranslationsManagement', 'plugin_activated']);
