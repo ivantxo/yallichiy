@@ -16,6 +16,7 @@ class TranslationsManagement
 
         // Ajax handlers
         add_action('wp_ajax_assignTranslator', [$this, 'assignTranslator']);
+        add_action('wp_ajax_nopriv_assignTranslator', [$this, 'assignTranslator']);
 
         // Access to other classes
         $this->TranslationRequest = new TranslationRequest();
@@ -50,9 +51,14 @@ class TranslationsManagement
         return $this->getTemplateHtml('adminManagement', $attributes);
     }
 
+    /**
+     * Assign a Translator to a Request
+     */
     public function assignTranslator()
     {
-        error_log(print_r($_POST, true));
+        $requestID = $_POST['requestID'];
+        $translatorID = $_POST['translatorID'];
+        $this->TranslationRequest->AssignTranslator($requestID, $translatorID);
     }
 
     /**

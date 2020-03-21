@@ -41,7 +41,20 @@ class TranslationRequest
         return $this->WPDatabase->get_results($query);
     }
 
-    public function Assign()
+    /**
+     * @param int $requestID
+     * @param int $translatorID
+     */
+    public function AssignTranslator($requestID, $translatorID)
     {
+        $query = "
+            UPDATE
+              wp_custom_client_request
+            SET
+              translator_id = {$translatorID}
+            WHERE
+              request_id = {$requestID}
+        ";
+        $this->WPDatabase->query($query);
     }
 }

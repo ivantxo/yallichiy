@@ -71,6 +71,9 @@
         },
         success: function (response) {
           console.log(response);
+          AdminManagement.selectedRequest.html('');
+          AdminManagement.selectedTranslator.html('');
+          AdminManagement.clearSelection();
         }
       });
     }
