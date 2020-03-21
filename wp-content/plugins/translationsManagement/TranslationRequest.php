@@ -20,7 +20,7 @@ class TranslationRequest
      * @param string $Status
      * @return stdClass array
      */
-    public function GetTranslationRequests($Status)
+    public function GetRequests($Status)
     {
         $query = "
             SELECT 
@@ -39,5 +39,9 @@ class TranslationRequest
             WHERE tr.status = '{$Status}'
         ";
         return $this->WPDatabase->get_results($query);
+    }
+
+    public function Assign()
+    {
     }
 }

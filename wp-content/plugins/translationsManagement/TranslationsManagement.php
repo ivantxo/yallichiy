@@ -1,7 +1,7 @@
 <?php
 
 require_once (ABSPATH . 'wp-content/plugins/translationsManagement/TranslationRequest.php');
-require_once (ABSPATH . 'wp-content/plugins/translationsManagement/TranslatorSkill.php');
+require_once (ABSPATH . 'wp-content/plugins/translationsManagement/Translator.php');
 
 class TranslationsManagement
 {
@@ -14,9 +14,12 @@ class TranslationsManagement
         add_shortcode('render-main-page', [$this, 'renderMainPage']);
         add_shortcode('render-admin-management', [$this, 'renderAdminManagement']);
 
+        // Ajax handlers
+        add_action('wp_ajax_assignTranslator', [$this, 'assignTranslator']);
+
         // Access to other classes
         $this->TranslationRequest = new TranslationRequest();
-        $this->TranslatorSkill = new TranslatorSkill();
+        $this->TranslatorSkill = new Translator();
     }
 
     /**
@@ -40,11 +43,16 @@ class TranslationsManagement
     {
         $default_attributes = [
             'show_title' => false,
-            'requests' => $this->TranslationRequest->GetTranslationRequests('requested'),
-            'translators' => $this->TranslatorSkill->GetTranslatorsSkills(),
+            'requests' => $this->TranslationRequest->GetRequests('requested'),
+            'translators' => $this->TranslatorSkill->GetSkills(),
         ];
         $attributes = shortcode_atts($default_attributes, $attributes);
         return $this->getTemplateHtml('adminManagement', $attributes);
+    }
+
+    public function assignTranslator()
+    {
+        error_log(print_r($_POST, true));
     }
 
     /**

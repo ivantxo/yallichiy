@@ -6,7 +6,7 @@
  * Time: 7:52 PM
  */
 
-class TranslatorSkill
+class Translator
 {
     private $WPDatabase;
 
@@ -19,7 +19,7 @@ class TranslatorSkill
     /**
      * @return array
      */
-    public function GetTranslatorsSkills()
+    public function GetSkills()
     {
         $parsedTranslatorsSkills = [];
         $query = "

@@ -9,7 +9,7 @@
 
 require_once(plugin_dir_path(__FILE__ ) . 'TranslationsManagement.php');
 
-$TranslationsManagement = new TranslationsManagement();
+register_activation_hook(__FILE__, ['TranslationsManagement', 'plugin_activated']);
 
 // How to run a function once
 //if ($TranslationsManagement->runCustomFunction('createRoles')) {
@@ -27,19 +27,18 @@ $TranslationsManagement = new TranslationsManagement();
 
 add_action('wp_enqueue_scripts', 'add_js');
 function add_js() {
-    wp_enqueue_script(
-        'translationsManagementScript',
+    wp_register_script(
+        'admin_management_script',
         plugin_dir_url( __FILE__ ) . 'assets/translationsManagement.js',
-        array('jquery')
+        ['jquery']
     );
 
     wp_localize_script(
-        'ajaxTranslationsManagementAjax',
-        'ajaxTranslationsManagement',
-        array(
-            'url' => admin_url('admin-ajax.php'),
-        )
+        'admin_management_script',
+        'adminAjax',
+        ['url' => admin_url('admin-ajax.php')]
     );
+    wp_enqueue_script('admin_management_script');
 }
 
-register_activation_hook(__FILE__, ['TranslationsManagement', 'plugin_activated']);
+$TranslationsManagement = new TranslationsManagement();
