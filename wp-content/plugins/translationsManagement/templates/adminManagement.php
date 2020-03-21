@@ -60,8 +60,8 @@
       <div id="admin_confirm_translator"></div>
     </div>
     <div id="admin_confirm_actions" style="display: none; flex-direction: row; flex-wrap: wrap; width: 100%;">
-      <button value="Cancel">Cancel</button>
-      <button value="Confirm">Confirm</button>
+      <button id="admin_clear_selection" value="Cancel">Cancel</button>
+      <button id="admin_confirm_selection" value="Confirm">Confirm</button>
     </div>
   </div>
 </div>

@@ -1,23 +1,63 @@
-jQuery(document).ready(function($) {
-  var request = $('.request');
-  var translator = $('.translator');
-  var requestID = undefined;
-  var translatorID = undefined;
+;(function ($) {
+  "use strict";
 
-  request.click(function () {
-    $(this).css('background-color', '#EBDEF0');
-    requestID = $(this).attr('id');
-    console.log('id', requestID);
-  });
+  var AdminManagement = {
+    request: undefined,
+    translator: undefined,
+    selectedRequest: undefined,
+    selectedTranslator: undefined,
+    adminConfirmRequest: undefined,
+    adminConfirmTranslator: undefined,
+    adminConfirmActions: undefined,
 
-  translator.click(function () {
-    $(this).css('background-color', '#FADBD8');
-    translatorID = $(this).attr('id');
-    console.log('id', translatorID);
-    if (typeof requestID !== 'undefined' && typeof translatorID !== 'undefined') {
-      $('#admin_confirm_request').html($('#' + requestID).html());
-      $('#admin_confirm_translator').html($('#' + translatorID).html());
-      $('#admin_confirm_actions').show();
+    init: function () {
+      AdminManagement.request = $('.request');
+      AdminManagement.translator = $('.translator');
+      AdminManagement.selectedRequest = undefined;
+      AdminManagement.selectedTranslator = undefined;
+      AdminManagement.adminConfirmRequest = $('#admin_confirm_request');
+      AdminManagement.adminConfirmTranslator = $('#admin_confirm_translator');
+      AdminManagement.adminConfirmActions = $('#admin_confirm_actions');
+      AdminManagement.bindActions();
+    },
+
+    bindActions: function () {
+      this.request.click(AdminManagement.requestSelect);
+      this.translator.click(AdminManagement.translatorSelect);
+      $('#admin_clear_selection').click(AdminManagement.clearSelection);
+    },
+
+    requestSelect: function () {
+      $(this).css('background-color', '#EBDEF0');
+      AdminManagement.selectedRequest = $(this);
+    },
+
+    translatorSelect: function () {
+      $(this).css('background-color', '#FADBD8');
+      AdminManagement.selectedTranslator = $(this);
+      if (typeof AdminManagement.selectedRequest !== 'undefined' &&
+        typeof AdminManagement.selectedTranslator !== 'undefined') {
+        AdminManagement.adminConfirmRequest.html(AdminManagement.selectedRequest.html());
+        AdminManagement.adminConfirmTranslator.html(AdminManagement.selectedTranslator.html());
+        AdminManagement.adminConfirmActions.show();
+      }
+    },
+
+    clearSelection: function () {
+      AdminManagement.selectedRequest.css('background-color', '#FFFFFF');
+      AdminManagement.selectedTranslator.css('background-color', '#FFFFFF');
+      AdminManagement.adminConfirmRequest.html('');
+      AdminManagement.adminConfirmTranslator.html('');
+      AdminManagement.selectedRequest = undefined;
+      AdminManagement.selectedTranslator = undefined;
+      AdminManagement.adminConfirmActions.hide();
     }
-  });
-});
+
+    // click en confirmar ajax request
+  };
+
+  $(function () {
+    AdminManagement.init();
+  })
+
+})(jQuery);
