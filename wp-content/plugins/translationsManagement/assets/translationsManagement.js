@@ -70,10 +70,29 @@
           translatorID: AdminManagement.translatorID
         },
         success: function (response) {
-          console.log(response);
+          console.log('response', response);
           AdminManagement.selectedRequest.html('');
           AdminManagement.selectedTranslator.html('');
           AdminManagement.clearSelection();
+          if (response.success) {
+            var data = response.data;
+            $('#admin_tbl_assigned_list > tbody:last-child').append(
+              '<tr>' +
+              '<td>' + data.type + '</td>' +
+              '<td>' + data.source_language + '</td>' +
+              '<td>' + data.target_language + '</td>' +
+              '<td>' + data.name + ' ' + data.surname + '</td>' +
+              '<td>' + data.phone + '</td>' +
+              '<td>' + data.email + '</td>' +
+              '<td>' + data.created + '</td>' +
+              '<td>&nbsp;</td>' +
+              '<td>' + data.translator_name + ' ' + data.translator_surname + '</td>' +
+              '<td>' + data.translator_phone + '</td>' +
+              '<td>' + data.translator_email + '</td>' +
+              '<tr/>'
+            );
+            $('#admin_assigned_list').show();
+          }
         }
       });
     }

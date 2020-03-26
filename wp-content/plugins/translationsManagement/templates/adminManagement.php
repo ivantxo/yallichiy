@@ -66,8 +66,11 @@
   </div>
 </div>
 
+<?php
+$adminHidden = empty($attributes['assignedRequests']) ? 'class="adminHidden"' : '';
+?>
 <br/><br/><br/>
-<div id="admin_assigned_list" class="adminHidden">
+<div id="admin_assigned_list" <?php echo $adminHidden; ?>>
   <table id="admin_tbl_assigned_list">
     <thead>
       <tr>
@@ -86,6 +89,19 @@
     </thead>
     <tbody>
       <?php foreach ($attributes['assignedRequests'] as $assignedRequest): ?>
+        <tr>
+          <td><?php echo $assignedRequest->type; ?></td>
+          <td><?php echo $assignedRequest->source_language; ?></td>
+          <td><?php echo $assignedRequest->target_language; ?></td>
+          <td><?php echo $assignedRequest->name . ' ' . $assignedRequest->surname; ?></td>
+          <td><?php echo $assignedRequest->phone; ?></td>
+          <td><?php echo $assignedRequest->email; ?></td>
+          <td><?php echo $assignedRequest->created; ?></td>
+          <td>&nbsp;</td>
+          <td><?php echo $assignedRequest->translator_name . ' ' . $assignedRequest->translator_surname; ?></td>
+          <td><?php echo $assignedRequest->translator_phone; ?></td>
+          <td><?php echo $assignedRequest->translator_email; ?></td>
+        </tr>
       <?php endforeach; ?>
     </tbody>
   </table>

@@ -46,7 +46,7 @@ class TranslationsManagement
             'show_title' => false,
             'requests' => $this->TranslationRequest->getRequestsByStatus('requested'),
             'translators' => $this->TranslatorSkill->getSkills(),
-            'assignedRequests' => $this->TranslationRequest->getRequestsByStatus('assigned'),
+            'assignedRequests' => $this->TranslationRequest->getRequestsByStatus('assigned', true),
         ];
         $attributes = shortcode_atts($default_attributes, $attributes);
         return $this->getTemplateHtml('adminManagement', $attributes);
@@ -61,6 +61,8 @@ class TranslationsManagement
         $translatorID = $_POST['translatorID'];
         $this->TranslationRequest->assignTranslator($requestID, $translatorID);
         $this->TranslationRequest->updateStatusRequest($requestID, 'assigned');
+        $assignedList = $this->TranslationRequest->getRequest($requestID);
+        wp_send_json_success($assignedList);
     }
 
     /**
