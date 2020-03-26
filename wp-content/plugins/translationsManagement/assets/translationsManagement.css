@@ -1,0 +1,26 @@
+.adminContent {
+  column-count: 2;
+}
+
+.adminColumn {
+  height: 300px;
+  overflow: auto;
+}
+
+.adminBox {
+  border: 2px groove #5f97a8;
+}
+
+.adminConfirmBox {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.adminConfirmActions {
+  display: none;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}

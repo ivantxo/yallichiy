@@ -19,7 +19,7 @@ class Translator
     /**
      * @return array
      */
-    public function GetSkills()
+    public function getSkills()
     {
         $parsedTranslatorsSkills = [];
         $query = "

@@ -27,6 +27,11 @@ register_activation_hook(__FILE__, ['TranslationsManagement', 'plugin_activated'
 
 add_action('wp_enqueue_scripts', 'add_js');
 function add_js() {
+    wp_enqueue_style(
+        'admin_management_style',
+        plugin_dir_url( __FILE__ ) . 'assets/translationsManagement.css'
+    );
+
     wp_register_script(
         'admin_management_script',
         plugin_dir_url( __FILE__ ) . 'assets/translationsManagement.js',

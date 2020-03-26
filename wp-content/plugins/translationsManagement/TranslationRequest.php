@@ -20,7 +20,7 @@ class TranslationRequest
      * @param string $Status
      * @return stdClass array
      */
-    public function GetRequests($Status)
+    public function getRequests($Status)
     {
         $query = "
             SELECT 
@@ -45,7 +45,7 @@ class TranslationRequest
      * @param int $requestID
      * @param int $translatorID
      */
-    public function AssignTranslator($requestID, $translatorID)
+    public function assignTranslator($requestID, $translatorID)
     {
         $query = "
             UPDATE
@@ -54,6 +54,23 @@ class TranslationRequest
               translator_id = {$translatorID}
             WHERE
               request_id = {$requestID}
+        ";
+        $this->WPDatabase->query($query);
+    }
+
+    /**
+     * @param int $requestID
+     * @param string $status
+     */
+    public function updateStatusRequest($requestID, $status)
+    {
+        $query = "
+            UPDATE
+                wp_custom_translation_request
+            SET
+                status = '{$status}'
+            WHERE
+                id = {$requestID}
         ";
         $this->WPDatabase->query($query);
     }

@@ -44,8 +44,8 @@ class TranslationsManagement
     {
         $default_attributes = [
             'show_title' => false,
-            'requests' => $this->TranslationRequest->GetRequests('requested'),
-            'translators' => $this->TranslatorSkill->GetSkills(),
+            'requests' => $this->TranslationRequest->getRequests('requested'),
+            'translators' => $this->TranslatorSkill->getSkills(),
         ];
         $attributes = shortcode_atts($default_attributes, $attributes);
         return $this->getTemplateHtml('adminManagement', $attributes);
@@ -58,7 +58,8 @@ class TranslationsManagement
     {
         $requestID = $_POST['requestID'];
         $translatorID = $_POST['translatorID'];
-        $this->TranslationRequest->AssignTranslator($requestID, $translatorID);
+        $this->TranslationRequest->assignTranslator($requestID, $translatorID);
+        $this->TranslationRequest->updateStatusRequest($requestID, 'assigned');
     }
 
     /**
