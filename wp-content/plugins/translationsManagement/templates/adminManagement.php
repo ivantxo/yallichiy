@@ -65,3 +65,28 @@
     </div>
   </div>
 </div>
+
+<br/><br/><br/>
+<div id="admin_assigned_list" class="adminHidden">
+  <table id="admin_tbl_assigned_list">
+    <thead>
+      <tr>
+        <td>Type</td>
+        <td>Source</td>
+        <td>Target</td>
+        <td>Client</td>
+        <td>Phone</td>
+        <td>Email</td>
+        <td>Requested</td>
+        <td>Assigned</td>
+        <td>Translator</td>
+        <td>Phone</td>
+        <td>Email</td>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($attributes['assignedRequests'] as $assignedRequest): ?>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+</div>

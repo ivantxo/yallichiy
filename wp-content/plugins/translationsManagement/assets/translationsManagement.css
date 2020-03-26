@@ -24,3 +24,7 @@
   flex-wrap: wrap;
   width: 100%;
 }
+
+.adminHidden {
+  display: none;
+}

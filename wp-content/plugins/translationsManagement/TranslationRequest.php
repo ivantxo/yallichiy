@@ -20,9 +20,15 @@ class TranslationRequest
      * @param string $Status
      * @return stdClass array
      */
-    public function getRequests($Status)
+    public function getRequestsByStatus($Status)
     {
-        $query = "
+        $query = $this->getRequestsBodyQuery() . "WHERE tr.status = '{$Status}'";
+        return $this->WPDatabase->get_results($query);
+    }
+
+    private function getRequestsBodyQuery()
+    {
+        return "
             SELECT 
               tr.id, 
               tr.type, 
@@ -35,10 +41,8 @@ class TranslationRequest
               tr.created
             FROM wp_custom_translation_request tr
             JOIN wp_custom_client_request cr ON cr.request_id = tr.id
-            JOIN wp_custom_client c ON cr.client_id = c.id
-            WHERE tr.status = '{$Status}'
+            JOIN wp_custom_client c ON cr.client_id = c.id 
         ";
-        return $this->WPDatabase->get_results($query);
     }
 
     /**

@@ -44,8 +44,9 @@ class TranslationsManagement
     {
         $default_attributes = [
             'show_title' => false,
-            'requests' => $this->TranslationRequest->getRequests('requested'),
+            'requests' => $this->TranslationRequest->getRequestsByStatus('requested'),
             'translators' => $this->TranslatorSkill->getSkills(),
+            'assignedRequests' => $this->TranslationRequest->getRequestsByStatus('assigned'),
         ];
         $attributes = shortcode_atts($default_attributes, $attributes);
         return $this->getTemplateHtml('adminManagement', $attributes);
